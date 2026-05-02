@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SubtitleHub - Pakua Subtitles za Kiswahili</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Top Navbar */
+        .navbar {
+            background: #000000dd;
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #1e3a8a;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #3b82f6, #f97316);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .logo span {
+            font-size: 1rem;
+            background: none;
+            -webkit-background-clip: unset;
+            background-clip: unset;
+            color: #f97316;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            color: #ddd;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .nav-menu a:hover {
+            color: #f97316;
+        }
+
+        .nav-menu a.active {
+            color: #f97316;
+            border-bottom: 2px solid #f97316;
+            padding-bottom: 5px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)), url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+            padding: 5rem 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            background: linear-gradient(135deg, #3b82f6, #f97316);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            color: #ccc;
+            font-size: 1.2rem;
+        }
+
+        .search-bar {
+            max-width: 600px;
+            margin: 2rem auto;
+            display: flex;
+            background: #1e1e1e;
+            border-radius: 50px;
+            overflow: hidden;
+            border: 1px solid #3b82f6;
+        }
+
+        .search-bar input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .search-bar input::placeholder {
+            color: #888;
+        }
+
+        .search-bar button {
+            background: #f97316;
+            border: none;
+            padding: 0 2rem;
+            font-weight: bold;
+            color: black;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 1.2rem;
+        }
+
+        .search-bar button:hover {
+            background: #3b82f6;
+            color: white;
+        }
+
+        /* Section Titles */
+        .section-title {
+            font-size: 1.8rem;
+            margin: 2rem 0 1rem 2rem;
+            border-left: 5px solid #f97316;
+            padding-left: 1rem;
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: flex;
+            gap: 1.5rem;
+            overflow-x: auto;
+            padding: 1rem 2rem;
+            scrollbar-width: thin;
+        }
+
+        .cards-grid::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .cards-grid::-webkit-scrollbar-track {
+            background: #1a1a1a;
+            border-radius: 10px;
+        }
+
+        .cards-grid::-webkit-scrollbar-thumb {
+            background: #f97316;
+            border-radius: 10px;
+        }
+
+        .movie-card, .series-card {
+            min-width: 200px;
+            background: #111;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid #1e3a8a;
+        }
+
+        .movie-card:hover, .series-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 0 20px #3b82f6;
+            border-color: #3b82f6;
+        }
+
+        .movie-card img, .series-card img {
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+        }
+
+        .movie-info {
+            padding: 0.8rem;
+        }
+
+        .movie-info h3 {
+            font-size: 0.95rem;
+            margin-bottom: 0.3rem;
+            text-align: center;
+        }
+
+        .badge {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #f97316;
+            margin-bottom: 0.5rem;
+        }
+
+        .movie-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.65rem;
+            color: #888;
+            margin-bottom: 0.8rem;
+        }
+
+        .download-btn {
+            display: block;
+            background: #f97316;
+            color: black;
+            text-align: center;
+            padding: 0.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 0.75rem;
+            font-weight: bold;
+            transition: 0.3s;
+            width: 100%;
+        }
+
+        .download-btn:hover {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .series-card h3 {
+            padding: 0.8rem;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        /* Series Modal - Slide from bottom */
+        .series-modal {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            justify-content: flex-end;
+            align-items: flex-end;
+        }
+
+        .series-modal.active {
+            display: flex;
+        }
+
+        .modal-container {
+            background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+            width: 100%;
+            max-height: 85%;
+            border-radius: 30px 30px 0 0;
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            overflow-y: auto;
+            padding: 1.5rem;
+            border-top: 2px solid #f97316;
+        }
+
+        .series-modal.active .modal-container {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #333;
+        }
+
+        .modal-header h2 {
+            color: #f97316;
+            font-size: 1.5rem;
+        }
+
+        .close-modal-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .close-modal-btn:hover {
+            color: #f97316;
+            transform: scale(1.1);
+        }
+
+        /* Seasons Grid */
+        .seasons-grid {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .season-btn {
+            background: #1e3a8a;
+            border: none;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .season-btn:hover, .season-btn.active {
+            background: #f97316;
+            color: black;
+        }
+
+        /* Episodes Grid */
+        .episodes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+
+        .episode-card {
+            background: #0f0f0f;
+            border-radius: 12px;
+            padding: 1rem;
+            border-left: 4px solid #3b82f6;
+            transition: 0.3s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .episode-card:hover {
+            background: #1a1a1a;
+            transform: translateX(5px);
+            border-left-color: #f97316;
+        }
+
+        .episode-info {
+            flex: 1;
+        }
+
+        .episode-number {
+            color: #f97316;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .episode-title {
+            color: white;
+            font-size: 0.95rem;
+            margin-top: 0.2rem;
+        }
+
+        .episode-download {
+            background: #f97316;
+            border: none;
+            color: black;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: bold;
+            transition: 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .episode-download:hover {
+            background: #3b82f6;
+            color: white;
+        }
+
+        /* No Results */
+        .no-results {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: #111;
+            border-radius: 16px;
+            margin: 1rem 2rem;
+            border: 1px dashed #f97316;
+        }
+
+        .no-results i {
+            font-size: 3rem;
+            color: #f97316;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        /* Footer */
+        footer {
+            background: #000;
+            padding: 2rem;
+            margin-top: 3rem;
+            text-align: center;
+            border-top: 1px solid #1e3a8a;
+        }
+
+        .social-icons a {
+            color: #3b82f6;
+            font-size: 1.8rem;
+            margin: 0 0.8rem;
+            transition: 0.3s;
+            display: inline-block;
+        }
+
+        .social-icons a:hover {
+            color: #f97316;
+            transform: translateY(-3px);
+        }
+
+        .credit {
+            margin-top: 1.2rem;
+            color: #f97316;
+            font-size: 0.9rem;
+        }
+
+        footer p {
+            margin-top: 0.5rem;
+            color: #aaa;
+            font-size: 0.8rem;
+        }
+
+        /* Contact Modal */
+        .contact-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1100;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .contact-modal-content {
+            background: #1a1a1a;
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            min-width: 300px;
+            border: 1px solid #3b82f6;
+            position: relative;
+        }
+
+        .close-contact-modal {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #f97316;
+        }
+
+        .contact-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .contact-btn {
+            padding: 1rem;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+        }
+
+        .whatsapp { background: #25D366; color: white; }
+        .call { background: #3b82f6; color: white; }
+
+        @media (max-width: 768px) {
+            .navbar { flex-direction: column; gap: 0.5rem; }
+            .hero h1 { font-size: 2rem; }
+            .modal-container { padding: 1rem; }
+            .episodes-grid { grid-template-columns: 1fr; }
+            .season-btn { padding: 0.5rem 1rem; font-size: 0.9rem; }
+            .movie-card { min-width: 160px; }
+            .movie-card img { height: 220px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo">🎬 SubtitleHub <span>Kiswahili</span></div>
+    <div class="nav-menu">
+        <a href="#" id="homeLink" class="active">Home</a>
+        <a href="#" id="moviesLink">Movies</a>
+        <a href="#" id="seriesLink">Series</a>
+        <a href="#" id="contactLink">Contact</a>
+        <i class="fas fa-search search-icon"></i>
+    </div>
+</nav>
+
+<section class="hero">
+    <h1>Download Subtitles za Kiswahili</h1>
+    <p>Pakua subtitles za sinema na series zilizotafsiriwa kwa Kiswahili</p>
+    <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Tafuta movie au series...">
+        <button id="searchBtn">→</button>
+    </div>
+</section>
+
+<!-- Trending Section -->
+<h2 class="section-title" id="trendingTitle">🔥 Trending</h2>
+<div class="cards-grid" id="trendingGrid">Loading...</div>
+
+<!-- Latest Releases Section -->
+<h2 class="section-title" id="latestTitle">🆕 Latest Releases</h2>
+<div class="cards-grid" id="latestGrid">Loading...</div>
+
+<h2 class="section-title" id="seriesTitle">📺 Popular Series</h2>
+<div class="cards-grid" id="seriesGrid">Loading...</div>
+
+<!-- Series Modal (Slide from bottom) -->
+<div id="seriesModal" class="series-modal">
+    <div class="modal-container">
+        <div class="modal-header">
+            <h2 id="modalSeriesTitle">Series Name</h2>
+            <button class="close-modal-btn" id="closeModalBtn">&times;</button>
+        </div>
+        <div id="seasonsContainer"></div>
+        <div id="episodesContainer"></div>
+    </div>
+</div>
+
+<!-- Contact Modal -->
+<div id="contactModal" class="contact-modal">
+    <div class="contact-modal-content">
+        <span class="close-contact-modal" id="closeContactModal">&times;</span>
+        <h2>📞 Wasiliana Nasi</h2>
+        <div class="contact-buttons">
+            <a href="https://wa.me/255779430083" class="contact-btn whatsapp" target="_blank">💬 WhatsApp 0779430083</a>
+            <a href="tel:0779430083" class="contact-btn call">📞 Call 0779430083</a>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="social-icons">
+        <a href="https://www.instagram.com/subtitles_za_kiswahili?igsh=MWF0dWloNHlzcW01cw==" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://wa.me/255779430083" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+    </div>
+    <div class="credit">website imetengenezwa na Elias Josiah</div>
+    <p>&copy; 2026 SubtitleHub | Subtitles za Kiswahili Bure</p>
+</footer>
+
+<script>
+    let moviesData = [];
+    let seriesData = [];
+    let currentSeries = null;
+    let currentSeason = 1;
+
+    // Load data
+    async function loadData() {
+        try {
+            const response = await fetch('subtitles.json');
+            const data = await response.json();
+            moviesData = data.movies || [];
+            seriesData = data.series || [];
+            
+            // Sort for Trending (by views - highest first)
+            const trendingMovies = [...moviesData].sort((a, b) => (b.views || 0) - (a.views || 0)).slice(0, 10);
+            
+            // Sort for Latest Releases (by dateAdded - newest first)
+            const latestMovies = [...moviesData].sort((a, b) => new Date(b.dateAdded || '2000-01-01') - new Date(a.dateAdded || '2000-01-01')).slice(0, 10);
+            
+            displayMovies(trendingMovies, 'trendingGrid');
+            displayMovies(latestMovies, 'latestGrid');
+            displaySeries(seriesData);
+        } catch (error) {
+            console.error('Error loading data:', error);
+            moviesData = [
+                { name: "Oppenheimer (2023)", lang: "Kiswahili", file: "/subtitles/oppenheimer.srt", image: "https://image.tmdb.org/t/p/w500/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg", views: 1250, dateAdded: "2026-04-15" },
+                { name: "John Wick: Chapter 4", lang: "Kiswahili", file: "/subtitles/johnwick4.srt", image: "https://image.tmdb.org/t/p/w500/vZloFAK7NmvMGKE7VkF5UHaz0I.jpg", views: 980, dateAdded: "2026-04-10" },
+                { name: "Joker (2019)", lang: "Kiswahili", file: "/subtitles/joker.srt", image: "https://image.tmdb.org/t/p/w500/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg", views: 3100, dateAdded: "2026-03-20" }
+            ];
+            seriesData = [
+                {
+                    name: "The Last of Us",
+                    image: "https://image.tmdb.org/t/p/w500/uKvVjHNqB5VmOrdxqAt2F7J78ED.jpg",
+                    views: 2300,
+                    seasons: [{ season: 1, episodes: [{ episode: 1, title: "When You're Lost in the Darkness", file: "/subtitles/lastofus_s01e01.srt" }] }]
+                }
+            ];
+            const trendingMovies = [...moviesData].sort((a, b) => (b.views || 0) - (a.views || 0)).slice(0, 10);
+            const latestMovies = [...moviesData].sort((a, b) => new Date(b.dateAdded || '2000-01-01') - new Date(a.dateAdded || '2000-01-01')).slice(0, 10);
+            displayMovies(trendingMovies, 'trendingGrid');
+            displayMovies(latestMovies, 'latestGrid');
+            displaySeries(seriesData);
+        }
+    }
+
+    function displayMovies(movies, containerId) {
+        const container = document.getElementById(containerId);
+        if (!movies || !movies.length) {
+            container.innerHTML = '<div class="no-results"><i>🎬</i><h3>Hakuna Movies kwa sasa</h3></div>';
+            return;
+        }
+        container.innerHTML = '';
+        movies.forEach(movie => {
+            const card = document.createElement('div');
+            card.className = 'movie-card';
+            card.innerHTML = `
+                <img src="${movie.image}" alt="${movie.name}" onerror="this.src='https://placehold.co/200x260/1a1a1a/white?text=No+Poster'">
+                <div class="movie-info">
+                    <h3>${movie.name}</h3>
+                    <div class="badge">🇹🇿 ${movie.lang}</div>
+                    <div class="movie-stats">
+                        <span>👁️ ${(movie.views || 0).toLocaleString()} views</span>
+                        <span>📅 ${movie.dateAdded ? new Date(movie.dateAdded).toLocaleDateString() : 'New'}</span>
+                    </div>
+                    <a href="${movie.file}" class="download-btn" download>📥 Download .srt</a>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    function displaySeries(series) {
+        const container = document.getElementById('seriesGrid');
+        if (!series.length) {
+            container.innerHTML = '<div class="no-results"><i>📺</i><h3>Hakuna Series kwa sasa</h3></div>';
+            return;
+        }
+        container.innerHTML = '';
+        series.forEach(seriesItem => {
+            const card = document.createElement('div');
+            card.className = 'series-card';
+            card.innerHTML = `
+                <img src="${seriesItem.image}" alt="${seriesItem.name}" onerror="this.src='https://placehold.co/200x260/1a1a1a/white?text=No+Poster'">
+                <div class="movie-info">
+                    <h3>${seriesItem.name}</h3>
+                    <div class="movie-stats">
+                        <span>👁️ ${(seriesItem.views || 0).toLocaleString()} views</span>
+                        <span>📺 ${seriesItem.seasons.length} Seasons</span>
+                    </div>
+                </div>
+            `;
+            card.addEventListener('click', () => openSeriesModal(seriesItem));
+            container.appendChild(card);
+        });
+    }
+
+    function openSeriesModal(series) {
+        currentSeries = series;
+        currentSeason = series.seasons[0]?.season || 1;
+        document.getElementById('modalSeriesTitle').innerText = series.name;
+        displaySeasons(series);
+        displayEpisodes(series, currentSeason);
+        const modal = document.getElementById('seriesModal');
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function displaySeasons(series) {
+        const container = document.getElementById('seasonsContainer');
+        container.innerHTML = `
+            <div class="seasons-grid">
+                ${series.seasons.map(s => `
+                    <button class="season-btn ${s.season === currentSeason ? 'active' : ''}" data-season="${s.season}">
+                        Season ${s.season}
+                    </button>
+                `).join('')}
+            </div>
+        `;
+        document.querySelectorAll('.season-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                currentSeason = parseInt(btn.dataset.season);
+                document.querySelectorAll('.season-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                displayEpisodes(currentSeries, currentSeason);
+            });
+        });
+    }
+
+    function displayEpisodes(series, seasonNum) {
+        const season = series.seasons.find(s => s.season === seasonNum);
+        const container = document.getElementById('episodesContainer');
+        if (!season || !season.episodes.length) {
+            container.innerHTML = '<div class="no-results"><i>📺</i><h3>Hakuna Episodes kwa season hii</h3></div>';
+            return;
+        }
+        container.innerHTML = `
+            <h3 style="margin-bottom: 1rem; color: #3b82f6;">Episodes - Season ${seasonNum}</h3>
+            <div class="episodes-grid">
+                ${season.episodes.map(ep => `
+                    <div class="episode-card">
+                        <div class="episode-info">
+                            <div class="episode-number">Episode ${ep.episode}</div>
+                            <div class="episode-title">${ep.title}</div>
+                        </div>
+                        <a href="${ep.file}" class="episode-download" download>📥 Pakua .srt</a>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    }
+
+    function closeSeriesModal() {
+        const modal = document.getElementById('seriesModal');
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    // Search functionality
+    function searchItems() {
+        const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+        
+        if (!searchTerm) {
+            // Reset to normal view
+            const trendingMovies = [...moviesData].sort((a, b) => (b.views || 0) - (a.views || 0)).slice(0, 10);
+            const latestMovies = [...moviesData].sort((a, b) => new Date(b.dateAdded || '2000-01-01') - new Date(a.dateAdded || '2000-01-01')).slice(0, 10);
+            displayMovies(trendingMovies, 'trendingGrid');
+            displayMovies(latestMovies, 'latestGrid');
+            displaySeries(seriesData);
+            document.getElementById('trendingTitle').innerHTML = '🔥 Trending';
+            document.getElementById('latestTitle').innerHTML = '🆕 Latest Releases';
+            document.getElementById('seriesTitle').innerHTML = '📺 Popular Series';
+            return;
+        }
+        
+        // Filter movies and series
+        const filteredMovies = moviesData.filter(movie => 
+            movie.name.toLowerCase().includes(searchTerm)
+        );
+        const filteredSeries = seriesData.filter(series => 
+            series.name.toLowerCase().includes(searchTerm)
+        );
+        
+        displayMovies(filteredMovies, 'trendingGrid');
+        displayMovies([], 'latestGrid');
+        displaySeries(filteredSeries);
+        
+        document.getElementById('trendingTitle').innerHTML = '🔍 Search Results';
+        document.getElementById('latestTitle').innerHTML = '';
+        document.getElementById('seriesTitle').innerHTML = '📺 Series';
+    }
+
+    // Navigation
+    document.getElementById('homeLink').addEventListener('click', (e) => {
+        e.preventDefault();
+        document.getElementById('searchInput').value = '';
+        const trendingMovies = [...moviesData].sort((a, b) => (b.views || 0) - (a.views || 0)).slice(0, 10);
+        const latestMovies = [...moviesData].sort((a, b) => new Date(b.dateAdded || '2000-01-01') - new Date(a.dateAdded || '2000-01-01')).slice(0, 10);
+        displayMovies(trendingMovies, 'trendingGrid');
+        displayMovies(latestMovies, 'latestGrid');
+        displaySeries(seriesData);
+        document.getElementById('trendingTitle').innerHTML = '🔥 Trending';
+        document.getElementById('latestTitle').innerHTML = '🆕 Latest Releases';
+        document.getElementById('seriesTitle').innerHTML = '📺 Popular Series';
+        document.querySelectorAll('.nav-menu a').forEach(a => a.classList.remove('active'));
+        e.target.classList.add('active');
+    });
+
+    document.getElementById('moviesLink').addEventListener('click', (e) => {
+        e.preventDefault();
+        const allMovies = [...moviesData].sort((a, b) => (b.views || 0) - (a.views || 0));
+        displayMovies(allMovies, 'trendingGrid');
+        displayMovies([], 'latestGrid');
+        displaySeries([]);
+        document.getElementById('trendingTitle').innerHTML = '🎬 Movies Zote';
+        document.getElementById('latestTitle').innerHTML = '';
+        document.getElementById('seriesTitle').innerHTML = '';
+        document.querySelectorAll('.nav-menu a').forEach(a => a.classList.remove('active'));
+        e.target.classList.add('active');
+    });
+
+    document.getElementById('seriesLink').addEventListener('click', (e) => {
+        e.preventDefault();
+        displayMovies([], 'trendingGrid');
+        displayMovies([], 'latestGrid');
+        displaySeries(seriesData);
+        document.getElementById('trendingTitle').innerHTML = '';
+        document.getElementById('latestTitle').innerHTML = '';
+        document.getElementById('seriesTitle').innerHTML = '📺 Series Zote';
+        document.querySelectorAll('.nav-menu a').forEach(a => a.classList.remove('active'));
+        e.target.classList.add('active');
+    });
+
+    // Search events
+    document.getElementById('searchBtn').addEventListener('click', searchItems);
+    document.getElementById('searchInput').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') searchItems();
+    });
+
+    // Close modal events
+    document.getElementById('closeModalBtn').addEventListener('click', closeSeriesModal);
+    document.getElementById('seriesModal').addEventListener('click', (e) => {
+        if (e.target === document.getElementById('seriesModal')) closeSeriesModal();
+    });
+
+    // Contact modal
+    const contactModal = document.getElementById('contactModal');
+    const contactLink = document.getElementById('contactLink');
+    document.getElementById('closeContactModal').addEventListener('click', () => contactModal.style.display = 'none');
+    contactLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        contactModal.style.display = 'flex';
+    });
+    window.addEventListener('click', (e) => {
+        if (e.target === contactModal) contactModal.style.display = 'none';
+    });
+
+    loadData();
+</script>
+</body>
+</html>

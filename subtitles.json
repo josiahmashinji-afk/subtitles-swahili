@@ -3,7 +3,7 @@
     {
       "name": "Oppenheimer (2023)",
       "lang": "Kiswahili",
-      "file": "/subtitles/oppenheimer.srt",
+      "file": "/subtitles/oppenheimer.vtt",
       "image": "https://image.tmdb.org/t/p/w500/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg",
       "views": 1250,
       "dateAdded": "2026-04-15"
@@ -11,7 +11,7 @@
     {
       "name": "John Wick: Chapter 4",
       "lang": "Kiswahili",
-      "file": "/subtitles/johnwick4.srt",
+      "file": "/subtitles/johnwick4.vtt",
       "image": "https://image.tmdb.org/t/p/w500/vZloFAK7NmvMGKE7VkF5UHaz0I.jpg",
       "views": 980,
       "dateAdded": "2026-04-10"
@@ -19,7 +19,7 @@
     {
       "name": "Joker (2019)",
       "lang": "Kiswahili",
-      "file": "/subtitles/joker.srt",
+      "file": "/subtitles/joker.vtt",
       "image": "https://image.tmdb.org/t/p/w500/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg",
       "views": 3100,
       "dateAdded": "2026-03-20"
@@ -27,7 +27,7 @@
     {
       "name": "Interstellar",
       "lang": "Kiswahili",
-      "file": "/subtitles/interstellar.srt",
+      "file": "/subtitles/interstellar.vtt",
       "image": "https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg",
       "views": 2450,
       "dateAdded": "2026-04-01"
@@ -35,7 +35,7 @@
     {
       "name": "Inception",
       "lang": "Kiswahili",
-      "file": "/subtitles/inception.srt",
+      "file": "/subtitles/inception.vtt",
       "image": "https://image.tmdb.org/t/p/w500/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg",
       "views": 1870,
       "dateAdded": "2026-03-28"
@@ -43,7 +43,7 @@
     {
       "name": "The Dark Knight",
       "lang": "Kiswahili",
-      "file": "/subtitles/darkknight.srt",
+      "file": "/subtitles/darkknight.vtt",
       "image": "https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
       "views": 4200,
       "dateAdded": "2026-03-15"
@@ -51,7 +51,7 @@
     {
       "name": "Avatar: The Way of Water",
       "lang": "Kiswahili",
-      "file": "/subtitles/avatar2.srt",
+      "file": "/subtitles/avatar2.vtt",
       "image": "https://image.tmdb.org/t/p/w500/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg",
       "views": 560,
       "dateAdded": "2026-04-18"
@@ -59,7 +59,7 @@
     {
       "name": "Spider-Man: Across the Spider-Verse",
       "lang": "Kiswahili",
-      "file": "/subtitles/spiderverse.srt",
+      "file": "/subtitles/spiderverse.vtt",
       "image": "https://image.tmdb.org/t/p/w500/8Vt6mWEReuy4Of61Lnj5Xj704m8.jpg",
       "views": 890,
       "dateAdded": "2026-04-12"
@@ -67,7 +67,7 @@
     {
       "name": "Dune: Part Two",
       "lang": "Kiswahili",
-      "file": "/subtitles/dune2.srt",
+      "file": "/subtitles/dune2.vtt",
       "image": "https://image.tmdb.org/t/p/w500/8b8R8l88Qje9dn9OE8PY05Nxl1X.jpg",
       "views": 320,
       "dateAdded": "2026-04-20"
@@ -75,7 +75,7 @@
     {
       "name": "Black Panther: Wakanda Forever",
       "lang": "Kiswahili",
-      "file": "/subtitles/blackpanther2.srt",
+      "file": "/subtitles/blackpanther2.vtt",
       "image": "https://image.tmdb.org/t/p/w500/sv1xJUazXeYqALzczSZ3O6nkH75.jpg",
       "views": 1100,
       "dateAdded": "2026-04-05"
@@ -83,7 +83,7 @@
     {
       "name": "Gladiator II",
       "lang": "Kiswahili",
-      "file": "/subtitles/gladiator2.srt",
+      "file": "/subtitles/gladiator2.vtt",
       "image": "https://image.tmdb.org/t/p/w500/Ar0RpbpPpi9nDp7sD5Nvfj5Y0rX.jpg",
       "views": 45,
       "dateAdded": "2026-05-01"
@@ -91,7 +91,7 @@
     {
       "name": "Deadpool 3",
       "lang": "Kiswahili",
-      "file": "/subtitles/deadpool3.srt",
+      "file": "/subtitles/deadpool3.vtt",
       "image": "https://image.tmdb.org/t/p/w500/8cdWjvZQUExUHTz63uQjvKb6QhI.jpg",
       "views": 78,
       "dateAdded": "2026-04-28"
@@ -99,7 +99,7 @@
     {
       "name": "Inside Out 2",
       "lang": "Kiswahili",
-      "file": "/subtitles/insideout2.srt",
+      "file": "/subtitles/insideout2.vtt",
       "image": "https://image.tmdb.org/t/p/w500/ouyHBD0KKobBvPkzMg6RdZkYQ14.jpg",
       "views": 234,
       "dateAdded": "2026-04-25"
@@ -107,7 +107,7 @@
     {
       "name": "Kingdom of the Planet of the Apes",
       "lang": "Kiswahili",
-      "file": "/subtitles/apes.srt",
+      "file": "/subtitles/apes.vtt",
       "image": "https://image.tmdb.org/t/p/w500/gKkl37BQuKTanygYQG1pyYgLVgf.jpg",
       "views": 156,
       "dateAdded": "2026-04-22"
@@ -115,7 +115,7 @@
     {
       "name": "Furiosa: A Mad Max Saga",
       "lang": "Kiswahili",
-      "file": "/subtitles/furiosa.srt",
+      "file": "/subtitles/furiosa.vtt",
       "image": "https://image.tmdb.org/t/p/w500/iADOJ8ZctbhP3VyvIjjwYHvWUDv.jpg",
       "views": 89,
       "dateAdded": "2026-04-30"
@@ -130,22 +130,22 @@
         {
           "season": 1,
           "episodes": [
-            { "episode": 1, "title": "When You're Lost in the Darkness", "file": "/subtitles/lastofus_s01e01.srt" },
-            { "episode": 2, "title": "Infected", "file": "/subtitles/lastofus_s01e02.srt" },
-            { "episode": 3, "title": "Long, Long Time", "file": "/subtitles/lastofus_s01e03.srt" },
-            { "episode": 4, "title": "Please Hold to My Hand", "file": "/subtitles/lastofus_s01e04.srt" },
-            { "episode": 5, "title": "Endure and Survive", "file": "/subtitles/lastofus_s01e05.srt" },
-            { "episode": 6, "title": "Kin", "file": "/subtitles/lastofus_s01e06.srt" },
-            { "episode": 7, "title": "Left Behind", "file": "/subtitles/lastofus_s01e07.srt" },
-            { "episode": 8, "title": "When We Are in Need", "file": "/subtitles/lastofus_s01e08.srt" },
-            { "episode": 9, "title": "Look for the Light", "file": "/subtitles/lastofus_s01e09.srt" }
+            { "episode": 1, "title": "When You're Lost in the Darkness", "file": "/subtitles/lastofus_s01e01.vtt" },
+            { "episode": 2, "title": "Infected", "file": "/subtitles/lastofus_s01e02.vtt" },
+            { "episode": 3, "title": "Long, Long Time", "file": "/subtitles/lastofus_s01e03.vtt" },
+            { "episode": 4, "title": "Please Hold to My Hand", "file": "/subtitles/lastofus_s01e04.vtt" },
+            { "episode": 5, "title": "Endure and Survive", "file": "/subtitles/lastofus_s01e05.vtt" },
+            { "episode": 6, "title": "Kin", "file": "/subtitles/lastofus_s01e06.vtt" },
+            { "episode": 7, "title": "Left Behind", "file": "/subtitles/lastofus_s01e07.vtt" },
+            { "episode": 8, "title": "When We Are in Need", "file": "/subtitles/lastofus_s01e08.vtt" },
+            { "episode": 9, "title": "Look for the Light", "file": "/subtitles/lastofus_s01e09.vtt" }
           ]
         },
         {
           "season": 2,
           "episodes": [
-            { "episode": 1, "title": "Future Days", "file": "/subtitles/lastofus_s02e01.srt" },
-            { "episode": 2, "title": "The Path", "file": "/subtitles/lastofus_s02e02.srt" }
+            { "episode": 1, "title": "Future Days", "file": "/subtitles/lastofus_s02e01.vtt" },
+            { "episode": 2, "title": "The Path", "file": "/subtitles/lastofus_s02e02.vtt" }
           ]
         }
       ]
@@ -158,19 +158,19 @@
         {
           "season": 1,
           "episodes": [
-            { "episode": 1, "title": "Celebration", "file": "/subtitles/succession_s01e01.srt" },
-            { "episode": 2, "title": "Shit Show at the Fuck Factory", "file": "/subtitles/succession_s01e02.srt" },
-            { "episode": 3, "title": "Lifeboats", "file": "/subtitles/succession_s01e03.srt" },
-            { "episode": 4, "title": "Sad Sack Wasp Trap", "file": "/subtitles/succession_s01e04.srt" },
-            { "episode": 5, "title": "I Went to Market", "file": "/subtitles/succession_s01e05.srt" }
+            { "episode": 1, "title": "Celebration", "file": "/subtitles/succession_s01e01.vtt" },
+            { "episode": 2, "title": "Shit Show at the Fuck Factory", "file": "/subtitles/succession_s01e02.vtt" },
+            { "episode": 3, "title": "Lifeboats", "file": "/subtitles/succession_s01e03.vtt" },
+            { "episode": 4, "title": "Sad Sack Wasp Trap", "file": "/subtitles/succession_s01e04.vtt" },
+            { "episode": 5, "title": "I Went to Market", "file": "/subtitles/succession_s01e05.vtt" }
           ]
         },
         {
           "season": 2,
           "episodes": [
-            { "episode": 1, "title": "The Summer Palace", "file": "/subtitles/succession_s02e01.srt" },
-            { "episode": 2, "title": "Vaulter", "file": "/subtitles/succession_s02e02.srt" },
-            { "episode": 3, "title": "Hunting", "file": "/subtitles/succession_s02e03.srt" }
+            { "episode": 1, "title": "The Summer Palace", "file": "/subtitles/succession_s02e01.vtt" },
+            { "episode": 2, "title": "Vaulter", "file": "/subtitles/succession_s02e02.vtt" },
+            { "episode": 3, "title": "Hunting", "file": "/subtitles/succession_s02e03.vtt" }
           ]
         }
       ]
@@ -183,25 +183,25 @@
         {
           "season": 1,
           "episodes": [
-            { "episode": 1, "title": "The Vanishing of Will Byers", "file": "/subtitles/strangerthings_s01e01.srt" },
-            { "episode": 2, "title": "The Weirdo on Maple Street", "file": "/subtitles/strangerthings_s01e02.srt" },
-            { "episode": 3, "title": "Holly, Jolly", "file": "/subtitles/strangerthings_s01e03.srt" },
-            { "episode": 4, "title": "The Body", "file": "/subtitles/strangerthings_s01e04.srt" },
-            { "episode": 5, "title": "The Flea and the Acrobat", "file": "/subtitles/strangerthings_s01e05.srt" },
-            { "episode": 6, "title": "The Monster", "file": "/subtitles/strangerthings_s01e06.srt" },
-            { "episode": 7, "title": "The Bathtub", "file": "/subtitles/strangerthings_s01e07.srt" },
-            { "episode": 8, "title": "The Upside Down", "file": "/subtitles/strangerthings_s01e08.srt" }
+            { "episode": 1, "title": "The Vanishing of Will Byers", "file": "/subtitles/strangerthings_s01e01.vtt" },
+            { "episode": 2, "title": "The Weirdo on Maple Street", "file": "/subtitles/strangerthings_s01e02.vtt" },
+            { "episode": 3, "title": "Holly, Jolly", "file": "/subtitles/strangerthings_s01e03.vtt" },
+            { "episode": 4, "title": "The Body", "file": "/subtitles/strangerthings_s01e04.vtt" },
+            { "episode": 5, "title": "The Flea and the Acrobat", "file": "/subtitles/strangerthings_s01e05.vtt" },
+            { "episode": 6, "title": "The Monster", "file": "/subtitles/strangerthings_s01e06.vtt" },
+            { "episode": 7, "title": "The Bathtub", "file": "/subtitles/strangerthings_s01e07.vtt" },
+            { "episode": 8, "title": "The Upside Down", "file": "/subtitles/strangerthings_s01e08.vtt" }
           ]
         },
         {
           "season": 2,
           "episodes": [
-            { "episode": 1, "title": "Madmax", "file": "/subtitles/strangerthings_s02e01.srt" },
-            { "episode": 2, "title": "Trick or Treat, Freak", "file": "/subtitles/strangerthings_s02e02.srt" },
-            { "episode": 3, "title": "The Pollywog", "file": "/subtitles/strangerthings_s02e03.srt" }
+            { "episode": 1, "title": "Madmax", "file": "/subtitles/strangerthings_s02e01.vtt" },
+            { "episode": 2, "title": "Trick or Treat, Freak", "file": "/subtitles/strangerthings_s02e02.vtt" },
+            { "episode": 3, "title": "The Pollywog", "file": "/subtitles/strangerthings_s02e03.vtt" }
           ]
         }
       ]
     }
   ]
-    }
+}

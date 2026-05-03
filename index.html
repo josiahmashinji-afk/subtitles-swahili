@@ -610,16 +610,16 @@
         } catch (error) {
             console.error('Error loading data:', error);
             moviesData = [
-                { name: "Oppenheimer (2023)", lang: "Kiswahili", file: "/subtitles/oppenheimer.srt", image: "https://image.tmdb.org/t/p/w500/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg", views: 1250, dateAdded: "2026-04-15" },
-                { name: "John Wick: Chapter 4", lang: "Kiswahili", file: "/subtitles/johnwick4.srt", image: "https://image.tmdb.org/t/p/w500/vZloFAK7NmvMGKE7VkF5UHaz0I.jpg", views: 980, dateAdded: "2026-04-10" },
-                { name: "Joker (2019)", lang: "Kiswahili", file: "/subtitles/joker.srt", image: "https://image.tmdb.org/t/p/w500/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg", views: 3100, dateAdded: "2026-03-20" }
+                { name: "Oppenheimer (2023)", lang: "Kiswahili", file: "/subtitles/oppenheimer.vtt", image: "https://image.tmdb.org/t/p/w500/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg", views: 1250, dateAdded: "2026-04-15" },
+                { name: "John Wick: Chapter 4", lang: "Kiswahili", file: "/subtitles/johnwick4.vtt", image: "https://image.tmdb.org/t/p/w500/vZloFAK7NmvMGKE7VkF5UHaz0I.jpg", views: 980, dateAdded: "2026-04-10" },
+                { name: "Joker (2019)", lang: "Kiswahili", file: "/subtitles/joker.vtt", image: "https://image.tmdb.org/t/p/w500/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg", views: 3100, dateAdded: "2026-03-20" }
             ];
             seriesData = [
                 {
                     name: "The Last of Us",
                     image: "https://image.tmdb.org/t/p/w500/uKvVjHNqB5VmOrdxqAt2F7J78ED.jpg",
                     views: 2300,
-                    seasons: [{ season: 1, episodes: [{ episode: 1, title: "When You're Lost in the Darkness", file: "/subtitles/lastofus_s01e01.srt" }] }]
+                    seasons: [{ season: 1, episodes: [{ episode: 1, title: "When You're Lost in the Darkness", file: "/subtitles/lastofus_s01e01.vtt" }] }]
                 }
             ];
             const trendingMovies = [...moviesData].sort((a, b) => (b.views || 0) - (a.views || 0)).slice(0, 10);
@@ -649,7 +649,7 @@
                         <span>👁️ ${(movie.views || 0).toLocaleString()} views</span>
                         <span>📅 ${movie.dateAdded ? new Date(movie.dateAdded).toLocaleDateString() : 'New'}</span>
                     </div>
-                    <a href="${movie.file}" class="download-btn" download>📥 Download .srt</a>
+                    <a href="${movie.file}" class="download-btn" download>📥 Download .vtt</a>
                 </div>
             `;
             container.appendChild(card);
@@ -681,64 +681,6 @@
         });
     }
 
-    // ========== LIVE SEARCH (AUTOMATIC) ==========
-    function performLiveSearch() {
-        const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
-        const searchResultsSection = document.getElementById('searchResultsSection');
-        const trendingSection = document.getElementById('trendingSection');
-        const latestSection = document.getElementById('latestSection');
-        const seriesMainSection = document.getElementById('seriesMainSection');
-        
-        // Kama hakuna kitu kwenye search, onyesha normal view
-        if (!searchTerm) {
-            searchResultsSection.style.display = 'none';
-            trendingSection.style.display = 'block';
-            latestSection.style.display = 'block';
-            seriesMainSection.style.display = 'block';
-            return;
-        }
-        
-        // Kama kuna search term, ficha normal view na onyesha search results
-        searchResultsSection.style.display = 'block';
-        trendingSection.style.display = 'none';
-        latestSection.style.display = 'none';
-        seriesMainSection.style.display = 'none';
-        
-        // Filter movies na series
-        const filteredMovies = moviesData.filter(movie => 
-            movie.name.toLowerCase().includes(searchTerm)
-        );
-        const filteredSeries = seriesData.filter(series => 
-            series.name.toLowerCase().includes(searchTerm)
-        );
-        
-        const totalResults = filteredMovies.length + filteredSeries.length;
-        document.getElementById('searchResultsTitle').innerHTML = `🔍 Search Results for "${searchTerm}" (${totalResults})`;
-        
-        // Onyesha movies ikiwa zipo
-        const searchMoviesGrid = document.getElementById('searchMoviesGrid');
-        if (filteredMovies.length === 0) {
-            searchMoviesGrid.innerHTML = '<div class="no-results"><i>🎬</i><h3>Hakuna movie inayolingana</h3></div>';
-        } else {
-            displayMovies(filteredMovies, 'searchMoviesGrid');
-        }
-        
-        // Onyesha series ikiwa zipo
-        const searchSeriesGrid = document.getElementById('searchSeriesGrid');
-        if (filteredSeries.length === 0) {
-            searchSeriesGrid.innerHTML = '<div class="no-results"><i>📺</i><h3>Hakuna series inayolingana</h3></div>';
-        } else {
-            displaySeriesOnSearch(filteredSeries);
-        }
-        
-        // Kama hakuna chochote kabisa
-        if (filteredMovies.length === 0 && filteredSeries.length === 0) {
-            searchMoviesGrid.innerHTML = '<div class="no-results"><i>🔍</i><h3>Hakuna subtitles kwa sasa</h3><p>Jaribu kuandika jina tofauti la movie au series</p></div>';
-            searchSeriesGrid.innerHTML = '';
-        }
-    }
-    
-    // Function maalum kwa search series
     function displaySeriesOnSearch(series) {
         const container = document.getElementById('searchSeriesGrid');
         if (!series.length) {
@@ -762,6 +704,50 @@
             card.addEventListener('click', () => openSeriesModal(seriesItem));
             container.appendChild(card);
         });
+    }
+
+    function performLiveSearch() {
+        const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+        const searchResultsSection = document.getElementById('searchResultsSection');
+        const trendingSection = document.getElementById('trendingSection');
+        const latestSection = document.getElementById('latestSection');
+        const seriesMainSection = document.getElementById('seriesMainSection');
+        
+        if (!searchTerm) {
+            searchResultsSection.style.display = 'none';
+            trendingSection.style.display = 'block';
+            latestSection.style.display = 'block';
+            seriesMainSection.style.display = 'block';
+            return;
+        }
+        
+        searchResultsSection.style.display = 'block';
+        trendingSection.style.display = 'none';
+        latestSection.style.display = 'none';
+        seriesMainSection.style.display = 'none';
+        
+        const filteredMovies = moviesData.filter(movie => movie.name.toLowerCase().includes(searchTerm));
+        const filteredSeries = seriesData.filter(series => series.name.toLowerCase().includes(searchTerm));
+        const totalResults = filteredMovies.length + filteredSeries.length;
+        
+        document.getElementById('searchResultsTitle').innerHTML = `🔍 Search Results for "${searchTerm}" (${totalResults})`;
+        
+        if (filteredMovies.length === 0 && filteredSeries.length === 0) {
+            document.getElementById('searchMoviesGrid').innerHTML = '<div class="no-results"><i>🔍</i><h3>Hakuna subtitles kwa sasa</h3><p>Jaribu kuandika jina tofauti la movie au series</p></div>';
+            document.getElementById('searchSeriesGrid').innerHTML = '';
+        } else {
+            if (filteredMovies.length === 0) {
+                document.getElementById('searchMoviesGrid').innerHTML = '<div class="no-results"><i>🎬</i><h3>Hakuna movie inayolingana</h3></div>';
+            } else {
+                displayMovies(filteredMovies, 'searchMoviesGrid');
+            }
+            
+            if (filteredSeries.length === 0) {
+                document.getElementById('searchSeriesGrid').innerHTML = '<div class="no-results"><i>📺</i><h3>Hakuna series inayolingana</h3></div>';
+            } else {
+                displaySeriesOnSearch(filteredSeries);
+            }
+        }
     }
 
     function openSeriesModal(series) {
@@ -812,7 +798,7 @@
                             <div class="episode-number">Episode ${ep.episode}</div>
                             <div class="episode-title">${ep.title}</div>
                         </div>
-                        <a href="${ep.file}" class="episode-download" download>📥 Pakua .srt</a>
+                        <a href="${ep.file}" class="episode-download" download>📥 Download .vtt</a>
                     </div>
                 `).join('')}
             </div>

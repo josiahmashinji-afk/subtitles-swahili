@@ -524,16 +524,29 @@
     </div>
 </section>
 
+<!-- Search Results Section (inaonekana tu wakati wa utafutaji) -->
+<div id="searchResultsSection" style="display: none;">
+    <h2 class="section-title" id="searchResultsTitle">🔍 Search Results</h2>
+    <div class="cards-grid" id="searchMoviesGrid"></div>
+    <div class="cards-grid" id="searchSeriesGrid"></div>
+</div>
+
 <!-- Trending Section -->
-<h2 class="section-title" id="trendingTitle">🔥 Trending</h2>
-<div class="cards-grid" id="trendingGrid">Loading...</div>
+<div id="trendingSection">
+    <h2 class="section-title" id="trendingTitle">🔥 Trending</h2>
+    <div class="cards-grid" id="trendingGrid">Loading...</div>
+</div>
 
 <!-- Latest Releases Section -->
-<h2 class="section-title" id="latestTitle">🆕 Latest Releases</h2>
-<div class="cards-grid" id="latestGrid">Loading...</div>
+<div id="latestSection">
+    <h2 class="section-title" id="latestTitle">🆕 Latest Releases</h2>
+    <div class="cards-grid" id="latestGrid">Loading...</div>
+</div>
 
-<h2 class="section-title" id="seriesTitle">📺 Popular Series</h2>
-<div class="cards-grid" id="seriesGrid">Loading...</div>
+<div id="seriesMainSection">
+    <h2 class="section-title" id="seriesTitle">📺 Popular Series</h2>
+    <div class="cards-grid" id="seriesGrid">Loading...</div>
+</div>
 
 <!-- Series Modal (Slide from bottom) -->
 <div id="seriesModal" class="series-modal">
@@ -668,6 +681,89 @@
         });
     }
 
+    // ========== LIVE SEARCH (AUTOMATIC) ==========
+    function performLiveSearch() {
+        const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+        const searchResultsSection = document.getElementById('searchResultsSection');
+        const trendingSection = document.getElementById('trendingSection');
+        const latestSection = document.getElementById('latestSection');
+        const seriesMainSection = document.getElementById('seriesMainSection');
+        
+        // Kama hakuna kitu kwenye search, onyesha normal view
+        if (!searchTerm) {
+            searchResultsSection.style.display = 'none';
+            trendingSection.style.display = 'block';
+            latestSection.style.display = 'block';
+            seriesMainSection.style.display = 'block';
+            return;
+        }
+        
+        // Kama kuna search term, ficha normal view na onyesha search results
+        searchResultsSection.style.display = 'block';
+        trendingSection.style.display = 'none';
+        latestSection.style.display = 'none';
+        seriesMainSection.style.display = 'none';
+        
+        // Filter movies na series
+        const filteredMovies = moviesData.filter(movie => 
+            movie.name.toLowerCase().includes(searchTerm)
+        );
+        const filteredSeries = seriesData.filter(series => 
+            series.name.toLowerCase().includes(searchTerm)
+        );
+        
+        const totalResults = filteredMovies.length + filteredSeries.length;
+        document.getElementById('searchResultsTitle').innerHTML = `🔍 Search Results for "${searchTerm}" (${totalResults})`;
+        
+        // Onyesha movies ikiwa zipo
+        const searchMoviesGrid = document.getElementById('searchMoviesGrid');
+        if (filteredMovies.length === 0) {
+            searchMoviesGrid.innerHTML = '<div class="no-results"><i>🎬</i><h3>Hakuna movie inayolingana</h3></div>';
+        } else {
+            displayMovies(filteredMovies, 'searchMoviesGrid');
+        }
+        
+        // Onyesha series ikiwa zipo
+        const searchSeriesGrid = document.getElementById('searchSeriesGrid');
+        if (filteredSeries.length === 0) {
+            searchSeriesGrid.innerHTML = '<div class="no-results"><i>📺</i><h3>Hakuna series inayolingana</h3></div>';
+        } else {
+            displaySeriesOnSearch(filteredSeries);
+        }
+        
+        // Kama hakuna chochote kabisa
+        if (filteredMovies.length === 0 && filteredSeries.length === 0) {
+            searchMoviesGrid.innerHTML = '<div class="no-results"><i>🔍</i><h3>Hakuna subtitles kwa sasa</h3><p>Jaribu kuandika jina tofauti la movie au series</p></div>';
+            searchSeriesGrid.innerHTML = '';
+        }
+    }
+    
+    // Function maalum kwa search series
+    function displaySeriesOnSearch(series) {
+        const container = document.getElementById('searchSeriesGrid');
+        if (!series.length) {
+            container.innerHTML = '<div class="no-results"><i>📺</i><h3>Hakuna series inayolingana</h3></div>';
+            return;
+        }
+        container.innerHTML = '';
+        series.forEach(seriesItem => {
+            const card = document.createElement('div');
+            card.className = 'series-card';
+            card.innerHTML = `
+                <img src="${seriesItem.image}" alt="${seriesItem.name}" onerror="this.src='https://placehold.co/200x260/1a1a1a/white?text=No+Poster'">
+                <div class="movie-info">
+                    <h3>${seriesItem.name}</h3>
+                    <div class="movie-stats">
+                        <span>👁️ ${(seriesItem.views || 0).toLocaleString()} views</span>
+                        <span>📺 ${seriesItem.seasons.length} Seasons</span>
+                    </div>
+                </div>
+            `;
+            card.addEventListener('click', () => openSeriesModal(seriesItem));
+            container.appendChild(card);
+        });
+    }
+
     function openSeriesModal(series) {
         currentSeries = series;
         currentSeason = series.seasons[0]?.season || 1;
@@ -729,86 +825,56 @@
         document.body.style.overflow = '';
     }
 
-    // Search functionality
-    function searchItems() {
-        const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
-        
-        if (!searchTerm) {
-            // Reset to normal view
-            const trendingMovies = [...moviesData].sort((a, b) => (b.views || 0) - (a.views || 0)).slice(0, 10);
-            const latestMovies = [...moviesData].sort((a, b) => new Date(b.dateAdded || '2000-01-01') - new Date(a.dateAdded || '2000-01-01')).slice(0, 10);
-            displayMovies(trendingMovies, 'trendingGrid');
-            displayMovies(latestMovies, 'latestGrid');
-            displaySeries(seriesData);
-            document.getElementById('trendingTitle').innerHTML = '🔥 Trending';
-            document.getElementById('latestTitle').innerHTML = '🆕 Latest Releases';
-            document.getElementById('seriesTitle').innerHTML = '📺 Popular Series';
-            return;
-        }
-        
-        // Filter movies and series
-        const filteredMovies = moviesData.filter(movie => 
-            movie.name.toLowerCase().includes(searchTerm)
-        );
-        const filteredSeries = seriesData.filter(series => 
-            series.name.toLowerCase().includes(searchTerm)
-        );
-        
-        displayMovies(filteredMovies, 'trendingGrid');
-        displayMovies([], 'latestGrid');
-        displaySeries(filteredSeries);
-        
-        document.getElementById('trendingTitle').innerHTML = '🔍 Search Results';
-        document.getElementById('latestTitle').innerHTML = '';
-        document.getElementById('seriesTitle').innerHTML = '📺 Series';
-    }
-
     // Navigation
     document.getElementById('homeLink').addEventListener('click', (e) => {
         e.preventDefault();
         document.getElementById('searchInput').value = '';
+        document.getElementById('searchResultsSection').style.display = 'none';
+        document.getElementById('trendingSection').style.display = 'block';
+        document.getElementById('latestSection').style.display = 'block';
+        document.getElementById('seriesMainSection').style.display = 'block';
+        document.querySelectorAll('.nav-menu a').forEach(a => a.classList.remove('active'));
+        e.target.classList.add('active');
         const trendingMovies = [...moviesData].sort((a, b) => (b.views || 0) - (a.views || 0)).slice(0, 10);
         const latestMovies = [...moviesData].sort((a, b) => new Date(b.dateAdded || '2000-01-01') - new Date(a.dateAdded || '2000-01-01')).slice(0, 10);
         displayMovies(trendingMovies, 'trendingGrid');
         displayMovies(latestMovies, 'latestGrid');
         displaySeries(seriesData);
-        document.getElementById('trendingTitle').innerHTML = '🔥 Trending';
-        document.getElementById('latestTitle').innerHTML = '🆕 Latest Releases';
-        document.getElementById('seriesTitle').innerHTML = '📺 Popular Series';
-        document.querySelectorAll('.nav-menu a').forEach(a => a.classList.remove('active'));
-        e.target.classList.add('active');
     });
 
     document.getElementById('moviesLink').addEventListener('click', (e) => {
         e.preventDefault();
+        document.getElementById('searchInput').value = '';
+        document.getElementById('searchResultsSection').style.display = 'none';
+        document.getElementById('trendingSection').style.display = 'block';
+        document.getElementById('latestSection').style.display = 'none';
+        document.getElementById('seriesMainSection').style.display = 'none';
         const allMovies = [...moviesData].sort((a, b) => (b.views || 0) - (a.views || 0));
         displayMovies(allMovies, 'trendingGrid');
-        displayMovies([], 'latestGrid');
-        displaySeries([]);
         document.getElementById('trendingTitle').innerHTML = '🎬 Movies Zote';
-        document.getElementById('latestTitle').innerHTML = '';
-        document.getElementById('seriesTitle').innerHTML = '';
         document.querySelectorAll('.nav-menu a').forEach(a => a.classList.remove('active'));
         e.target.classList.add('active');
     });
 
     document.getElementById('seriesLink').addEventListener('click', (e) => {
         e.preventDefault();
-        displayMovies([], 'trendingGrid');
-        displayMovies([], 'latestGrid');
+        document.getElementById('searchInput').value = '';
+        document.getElementById('searchResultsSection').style.display = 'none';
+        document.getElementById('trendingSection').style.display = 'none';
+        document.getElementById('latestSection').style.display = 'none';
+        document.getElementById('seriesMainSection').style.display = 'block';
         displaySeries(seriesData);
-        document.getElementById('trendingTitle').innerHTML = '';
-        document.getElementById('latestTitle').innerHTML = '';
         document.getElementById('seriesTitle').innerHTML = '📺 Series Zote';
         document.querySelectorAll('.nav-menu a').forEach(a => a.classList.remove('active'));
         e.target.classList.add('active');
     });
 
-    // Search events
-    document.getElementById('searchBtn').addEventListener('click', searchItems);
+    // Search events - LIVE AUTOMATIC
+    document.getElementById('searchBtn').addEventListener('click', performLiveSearch);
     document.getElementById('searchInput').addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') searchItems();
+        if (e.key === 'Enter') performLiveSearch();
     });
+    document.getElementById('searchInput').addEventListener('input', performLiveSearch);
 
     // Close modal events
     document.getElementById('closeModalBtn').addEventListener('click', closeSeriesModal);
